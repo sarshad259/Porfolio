@@ -10,11 +10,25 @@
     font-family: -apple-system, sans-serif;
 }
 
+/* --- New Color Theme --- */
 :root {
-    --bg-color: #001;
-    --second-bg-color: #112;
-    --text-color: #fff;
-    --main-color: #16ff00;
+    --bg-color: #0F111A;
+    --second-bg-color: #181A23;
+    --glass-bg: rgba(255,255,255,0.05);
+    --main-color: #00C9FF;
+    --accent-color: #B621FE;
+    --text-color: #F0F0F0;
+    --text-muted: #A3AAB9;
+}
+
+body.light-theme {
+    --bg-color: #F0F0F0;
+    --second-bg-color: #fff;
+    --glass-bg: rgba(0,0,0,0.04);
+    --main-color: #00C9FF;
+    --accent-color: #B621FE;
+    --text-color: #181A23;
+    --text-muted: #A3AAB9;
 }
 
 html {
@@ -22,6 +36,7 @@ html {
     overflow-x: hidden;
 }
 
+/* Background */
 body {
     background: var(--bg-color);
     color: var(--text-color);
@@ -53,7 +68,7 @@ header {
     font-size: 3rem;
     font-weight: 800;
     cursor: pointer;
-    background: -webkit-linear-gradient(#16ff00, #ffed00);
+    background: #00C9FF;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -148,7 +163,7 @@ span {
     font-size: 5.8rem;
     font-weight: 700;
     line-height: 1.3;
-    background: -webkit-linear-gradient(#16ff00, #ffed00);
+    background:  #00C9FF;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -178,6 +193,8 @@ span {
 .home-content p {
     font-size: 1.6rem;
 }
+
+
 
 .social-media a {
     display: inline-flex;
@@ -280,187 +297,368 @@ span {
 }
 .portfolio-content {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, auto));
-    align-items: center;
-    gap: 2.3rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 3rem;
     margin-top: 4.2rem;
+    padding-bottom: 2rem;
 }
 
 .row {
-    background: var(--second-bg-color);
-    border-radius: 28px;
-    border: 1px solid transparent;
-    box-shadow: 0 0 5px var(--main-color);
-    padding: 20px;
-    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(40px) scale(0.97);
+    transition: 
+        opacity 0.7s cubic-bezier(.77,0,.18,1), 
+        transform 0.7s cubic-bezier(.77,0,.18,1),
+        box-shadow 0.3s,
+        background 0.3s;
+    background: var(--glass-bg);
+    border-radius: 2.2rem;
+    box-shadow: 0 8px 32px 0 rgba(0,201,255,0.10), 0 1.5px 6px rgba(182,33,254,0.12);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 420px;
+    position: relative;
+    border: 1.5px solid var(--glass-bg);
+    backdrop-filter: blur(8px);
+}
+
+.row.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.row::before {
+    content: "";
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, var(--main-color) 0%, transparent 70%);
+    opacity: 0.18;
+    z-index: 0;
+    pointer-events: none;
 }
 
 .row img {
-    height: auto;
+    height: 200px;
     width: 100%;
-    border-radius: 28px;
-    margin-bottom: 1.4rem;
+    object-fit: cover;
+    border-radius: 2.2rem 2.2rem 0 0;
+    margin-bottom: 0;
+    box-shadow: 0 4px 24px rgba(0,201,255,0.08);
+    transition: transform 0.3s, filter 0.3s;
+    filter: grayscale(20%) brightness(0.95);
+    z-index: 1;
 }
 
-.main-row {
+.row:hover img {
+    transform: scale(1.04) rotate(-2deg);
+    filter: grayscale(0%) brightness(1.05);
+}
+
+.row-content {
+    flex: 1;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
+    padding: 2rem 2rem 1.5rem 2rem;
+    z-index: 2;
+    position: relative;
+    background: var(--glass-bg);
+    border-radius: 0 0 2.2rem 2.2rem;
+    box-shadow: 0 2px 12px rgba(0,201,255,0.05);
+    backdrop-filter: blur(4px);
 }
 
-.row h5 {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-.row i {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 55px;
-    height: 55px;
-    font-size: 27px;
-    border-radius: 50%;
-    color: var(--text-color);
-    background: #075fe4;
-}
-
-.row h4 {
-    font-size: 25px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    line-height: 1.4;
+/* Remove color change on hover and keep only scale effect */
+.row {
+  background: var(--glass-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .row:hover {
-    border: 1px solid var(--main-color);
-    transform: translateY(-5px) scale(1.03);
-    cursor: pointer;
+  transform: scale(1.5); /* Only scale */
 }
 
-/* Contact Section Code */
-
-.contact {
-    background: var(--second-bg-color);
+/* Description below title */
+.project-description {
+  font-size: 14px;
+  color: var(--text-color); /* Make sure this changes with light/dark mode */
+  margin-top: 8px;
+  line-height: 1.6;
+  font-family: 'Poppins', sans-serif;
 }
 
-.contact h2 {
-    margin-bottom: 3rem;
+
+.row-text h5 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--main-color);
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s, text-shadow 0.3s;
+    text-shadow: 0 2px 8px #00C9FF44;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+/* .row:hover h5 {
+    color: var(--accent-color);
+    text-shadow: 0 0 16px var(--main-color), 0 0 8px var(--accent-color);
+} */
+
+.row .nav-btn1 {
+    margin-top: 1.2rem;
+    align-self: flex-start;
+}
+
+.row .nav-btn1 a {
+    background: linear-gradient(90deg, var(--main-color) 60%, var(--accent-color) 100%);
+    color: var(--bg-color);
+    padding: 0.8rem 2.2rem;
+    border-radius: 1.2rem;
+    font-weight: 600;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 12px #00C9FF44;
+    transition: 
+        background 0.3s,
+        color 0.3s,
+        box-shadow 0.3s,
+        transform 0.3s;
+    border: none;
+    outline: none;
+    display: inline-block;
+    letter-spacing: 0.5px;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+.row .nav-btn1 a:hover {
+    background: linear-gradient(90deg, var(--accent-color) 60%, var(--main-color) 100%);
+    color: var(--text-color);
+    box-shadow: 0 0 24px #B621FE88;
+    transform: scale(1.10) translateY(-2px);
+}
+
+/* .row:hover {
+    box-shadow: 0 16px 48px 0 #00C9FF55, 0 2px 12px #B621FE44;
+    transform: translateY(-8px) scale(1.03);
+    background: linear-gradient(120deg, var(--accent-color) 0%, var(--bg-color) 100%);
+} */
+
+/* Text Colors */
+.heading, .about-content h2, .about-content h3 {
+    color: var(--main-color);
+}
+
+.about-content p, .home-content p {
+    color: var(--text-muted);
+}
+
+.portfolio-content, .row-content {
     color: var(--text-color);
 }
 
-.contact form {
-    max-width: 90rem;
-    margin: 1rem auto;
-    text-align: center;
-    margin-bottom: 3rem;
+/* Scrollbar */
+::-webkit-scrollbar-thumb {
+    background-color: var(--main-color);
 }
 
-.contact form .input-box {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+/* Button */
+.btn, .contact form .btn {
+    background: linear-gradient(90deg, var(--main-color) 60%, var(--accent-color) 100%);
+    color: var(--bg-color);
+    border: none;
+    box-shadow: 0 0 1.6rem var(--main-color);
 }
 
-.contact form .input-box input,
-.contact form textarea {
-    width: 100%;
-    padding: 1.5rem;
-    font-size: 1.6rem;
+.btn:hover, .contact form .btn:hover {
+    background: linear-gradient(90deg, var(--accent-color) 60%, var(--main-color) 100%);
     color: var(--text-color);
-    background: var(--bg-color);
-    border-radius: 0.8rem;
-    border: 1px solid var(--main-color);
-    margin: 0.7rem 0;
-    resize: none;
+    box-shadow: 0 0 2.4rem var(--accent-color);
 }
 
-.contact form .input-box input {
-    width: 49%;
-    margin: 0.7rem 0.35rem;
+/* Glass effect for cards and contact */
+.contact, .row-content {
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    border-radius: 1.2rem;
+    box-shadow: 0 8px 32px 0 rgba(0,201,255,0.10);
 }
 
-.contact form .btn {
-    margin-top: 2rem;
-}
-
-/* Footer Section Code */
-
+/* Footer */
 .footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    padding: 40px 0;
     background: var(--bg-color);
+    color: var(--text-muted);
 }
-
-.footer .social {
-    text-align: center;
-    padding-bottom: 25px;
-    color: var(--main-color);
-}
-
 .footer .social a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 4rem;
-    height: 4rem;
-    background: transparent;
     border: 0.2rem solid var(--main-color);
-    border-radius: 50%;
-    font-size: 2rem;
     color: var(--main-color);
-    margin: 3rem 1.5rem 3rem 0;
-    transition: 0.3s ease;
 }
-
 .footer .social a:hover {
-    transform: scale(1.2) translateY(-8px);
     background: var(--main-color);
-    color: var(--text-color);
+    color: var(--bg-color);
     box-shadow: 0 0 20px var(--main-color);
 }
 
+/* Muted text */
+.text-muted {
+    color: var(--text-muted);
+}
+
+/* Contact Form Styling */
+.contact {
+  background: var(--glass-bg);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  padding-bottom: 5rem;
+}
+
+.contact form {
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact .input-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.contact .input-box input,
+.contact textarea {
+  flex: 1 1 45%;
+  padding: 1.5rem;
+  background: transparent;
+  border: 2px solid var(--main-color);
+  color: var(--text-color);
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  transition: all 0.3s ease;
+}
+
+.contact textarea {
+  flex: 1 1 100%;
+  resize: none;
+}
+
+.contact input::placeholder,
+.contact textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+  transition: color 0.3s ease;
+}
+
+.contact input:focus,
+.contact textarea:focus {
+  outline: none;
+  box-shadow: 0 0 10px var(--main-color);
+  background-color: rgba(0, 201, 255, 0.03);
+}
+
+.contact .btn {
+  align-self: flex-start;
+  padding: 1rem 2.8rem;
+  font-size: 1.6rem;
+  border-radius: 4rem;
+  background: linear-gradient(90deg, var(--main-color), var(--accent-color));
+  color: var(--bg-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact .btn:hover {
+  box-shadow: 0 0 16px var(--main-color);
+  color: var(--text-color);
+}
+#success-message,
+#error-message {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-top: 2rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+.contact {
+  animation: fadeInUp 0.8s ease;
+}
+
+.footer {
+  background: var(--second-bg-color);
+  color: var(--text-muted);
+  padding: 3rem 9%;
+  text-align: center;
+  border-top: 1px solid var(--glass-bg);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.footer .social {
+  margin-bottom: 1.5rem;
+}
+
+.footer .social a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1rem;
+  width: 4rem;
+  height: 4rem;
+  border: 2px solid var(--main-color);
+  border-radius: 50%;
+  font-size: 2rem;
+  color: var(--main-color);
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.footer .social a:hover {
+  background: var(--main-color);
+  color: var(--bg-color);
+  box-shadow: 0 0 20px var(--main-color);
+  transform: scale(1.1) translateY(-4px);
+}
+
 .footer .copyright {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 16px;
-    color: var(--text-color);
-}
-/* Response Message (Success/Error) */
-#responseMessage {
-    margin-top: 10px;
-    font-size: 1.1rem;
-    font-weight: bold;
+  font-size: 1.6rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 1rem;
 }
 
-/* Input Field Focus Effect */
-input:focus,
-textarea:focus {
-    border-color: #00aaff;
-    box-shadow: 0 0 10px #00aaff;
-    transition: 0.3s;
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Input Focus Effect */
-.contact-input:focus,
-.contact-textarea:focus {
-    border-color: #00aaff;
-    box-shadow: 0 0 10px #00aaff;
-    transition: 0.3s;
-}
-
-/* Success/Error Message */
-#responseMessage {
-    margin-top: 10px;
-    font-size: 1.1rem;
-    font-weight: bold;
+.contact {
+  animation: fadeInUp 0.4s ease; /* Faster */
 }
 
 
+
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 
 /* Responsive Design Code */
@@ -541,6 +739,7 @@ textarea:focus {
         margin-top: 8rem;
     }
     .about-img img {
+        
         width: 80vw;
         margin-top: 4rem;
     }
@@ -553,3 +752,184 @@ textarea:focus {
         margin: 2rem 0;
     }
 }
+
+@keyframes spin {
+    0% { transform: rotate(0);}
+    100% { transform: rotate(360deg);}
+}
+/* Updated CSS with Footer, Faster Animations, and Light Mode Text Fix */
+
+:root {
+  --bg-color: #0F111A;
+  --second-bg-color: #181A23;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --main-color: #00C9FF;
+  --accent-color: #B621FE;
+  --text-color: #F0F0F0;
+  --text-muted: #A3AAB9;
+}
+
+body.light-theme {
+  --bg-color: #F0F0F0;
+  --second-bg-color: #fff;
+  --glass-bg: rgba(0, 0, 0, 0.04);
+  --main-color: #00C9FF;
+  --accent-color: #B621FE;
+  --text-color: #181A23;
+  --text-muted: #333;
+}
+
+/* Footer Styles */
+.footer {
+  background: var(--second-bg-color);
+  color: var(--text-muted);
+  padding: 3rem 9%;
+  text-align: center;
+  border-top: 1px solid var(--glass-bg);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.footer .social {
+  margin-bottom: 1.5rem;
+}
+
+.footer .social a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 1rem;
+  width: 4rem;
+  height: 4rem;
+  border: 2px solid var(--main-color);
+  border-radius: 50%;
+  font-size: 2rem;
+  color: var(--main-color);
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.footer .social a:hover {
+  background: var(--main-color);
+  color: var(--bg-color);
+  box-shadow: 0 0 20px var(--main-color);
+  transform: scale(1.1) translateY(-4px);
+}
+
+.footer .copyright {
+  font-size: 1.6rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+/* Faster Contact Animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact {
+  animation: fadeInUp 0.4s ease;
+  background: var(--glass-bg);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  padding-bottom: 5rem;
+}
+
+.contact form {
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.contact .input-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.contact .input-box input,
+.contact textarea {
+  flex: 1 1 45%;
+  padding: 1.5rem;
+  background: transparent;
+  border: 2px solid var(--main-color);
+  color: var(--text-color);
+  border-radius: 1rem;
+  font-size: 1.6rem;
+  transition: all 0.3s ease;
+}
+
+.contact textarea {
+  flex: 1 1 100%;
+  resize: none;
+}
+
+.contact input::placeholder,
+.contact textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+  transition: color 0.3s ease;
+}
+
+.contact input:focus,
+.contact textarea:focus {
+  outline: none;
+  box-shadow: 0 0 10px var(--main-color);
+  background-color: rgba(0, 201, 255, 0.03);
+}
+
+.contact .btn {
+  display: block; /* Ensure it's treated as a block element */
+  margin: 2rem auto; /* Auto margin horizontally to center */
+  padding: 1rem 2.8rem;
+  font-size: 1.6rem;
+  border-radius: 1rem;
+  background: linear-gradient(90deg, var(--main-color), var(--accent-color));
+  color: var(--bg-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 700px;
+}
+
+
+.contact .btn:hover {
+  box-shadow: 0 0 16px var(--main-color);
+  color: var(--text-color);
+}
+
+/* Light Theme Text Fix for About & Card */
+.about-content p,
+.row-content {
+  color: var(--text-color);
+}
+
+.row-content h5 {
+  color: var(--main-color);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.light-theme .row-content h5 {
+  color: var(--accent-color);
+}
+
+.about-content span,
+.about-content h3,
+.about-content h2 {
+  color: var(--main-color);
+  transition: color 0.3s ease;
+}
+
+.light-theme .about-content p {
+  color: var(--text-color);
+}
+
+
