@@ -26,6 +26,23 @@ document.getElementById("download-btn").addEventListener("click", () => {
 })
 
 document.addEventListener("DOMContentLoaded", function () {
+    // GSAP scroll animation for portfolio cards
+    if (window.gsap && window.ScrollTrigger) {
+        gsap.utils.toArray('.row').forEach(card => {
+            gsap.fromTo(card, 
+                {opacity: 0, y: 60}, 
+                {
+                    opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        });
+    }
+
     // Initialize EmailJS
     if (emailjs) {
         emailjs.init("J3seaIAFcq0yF7t2Z"); // Replace with your Public Key
@@ -80,6 +97,43 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("Failed to send the message. Please try again later.");
         });
     });
+
+    document.getElementById('theme-toggle').onclick = function() {
+        document.body.classList.toggle('light-theme');
+        this.innerHTML = document.body.classList.contains('light-theme')
+            ? "<i class='bx bx-sun' style='font-size:2rem;color:#B621FE;'></i>"
+            : "<i class='bx bx-moon' style='font-size:2rem;color:#00C9FF;'></i>";
+    };
 });
 
+window.addEventListener('load', function() {
+    const preloader = document.getElementById('preloader');
+    if (preloader) preloader.style.display = 'none';
+});
 
+const backToTopBtn = document.getElementById('back-to-top');
+window.addEventListener('scroll', function() {
+    if (window.scrollY > 300) {
+        backToTopBtn.style.display = 'block';
+    } else {
+        backToTopBtn.style.display = 'none';
+    }
+});
+backToTopBtn.onclick = function() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+};
+
+gsap.fromTo(card,
+  { opacity: 0, y: 60 },
+  {
+    opacity: 1,
+    y: 0,
+    duration: 0.4, // Reduced duration for faster effect
+    ease: "power2.out",
+    scrollTrigger: {
+      trigger: card,
+      start: "top 85%",
+      toggleActions: "play none none none"
+    }
+  }
+);
