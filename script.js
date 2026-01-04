@@ -29,8 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // GSAP scroll animation for portfolio cards
     if (window.gsap && window.ScrollTrigger) {
         gsap.utils.toArray('.row').forEach(card => {
-            gsap.fromTo(card, 
-                {opacity: 0, y: 60}, 
+            gsap.fromTo(card,
+                { opacity: 0, y: 60 },
                 {
                     opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
                     scrollTrigger: {
@@ -87,18 +87,18 @@ document.addEventListener("DOMContentLoaded", function () {
             message: message,
             reply_to: email // Allows users to reply to the sender's email
         })
-        .then(response => {
-            console.log("Email sent successfully!", response);
-            alert("Your message has been sent successfully!");
-            form.reset(); // Clear form fields after successful submission
-        })
-        .catch(error => {
-            console.error("Error sending email:", error);
-            alert("Failed to send the message. Please try again later.");
-        });
+            .then(response => {
+                console.log("Email sent successfully!", response);
+                alert("Your message has been sent successfully!");
+                form.reset(); // Clear form fields after successful submission
+            })
+            .catch(error => {
+                console.error("Error sending email:", error);
+                alert("Failed to send the message. Please try again later.");
+            });
     });
 
-    document.getElementById('theme-toggle').onclick = function() {
+    document.getElementById('theme-toggle').onclick = function () {
         document.body.classList.toggle('light-theme');
         this.innerHTML = document.body.classList.contains('light-theme')
             ? "<i class='bx bx-sun' style='font-size:2rem;color:#B621FE;'></i>"
@@ -106,34 +106,21 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 });
 
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     const preloader = document.getElementById('preloader');
     if (preloader) preloader.style.display = 'none';
 });
 
 const backToTopBtn = document.getElementById('back-to-top');
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function () {
     if (window.scrollY > 300) {
         backToTopBtn.style.display = 'block';
     } else {
         backToTopBtn.style.display = 'none';
     }
 });
-backToTopBtn.onclick = function() {
-    window.scrollTo({top: 0, behavior: 'smooth'});
+backToTopBtn.onclick = function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-gsap.fromTo(card,
-  { opacity: 0, y: 60 },
-  {
-    opacity: 1,
-    y: 0,
-    duration: 0.4, // Reduced duration for faster effect
-    ease: "power2.out",
-    scrollTrigger: {
-      trigger: card,
-      start: "top 85%",
-      toggleActions: "play none none none"
-    }
-  }
-);
+
