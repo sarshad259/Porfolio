@@ -1217,3 +1217,66 @@ header {
         left: 0;
     }
 }
+
+/* --- REFINED POLISH --- */
+
+/* Testimonials Section Styles */
+.testimonials {
+    padding: 100px 7%;
+    background: var(--second-bg-color);
+}
+
+.testimonials .heading {
+    margin-bottom: 5rem;
+}
+
+.testimonials-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+.testimonial-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--main-color);
+    box-shadow: 0 10px 30px rgba(0, 217, 255, 0.1);
+}
+
+.testimonial-card i {
+    font-size: 3rem;
+    color: var(--main-color);
+    opacity: 0.3;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.testimonial-card p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.client-info h3 {
+    font-size: 1.3rem;
+    color: var(--main-color);
+    margin-bottom: 0.3rem;
+}
+
+.client-info span {
+    font-size: 0.9rem;
+    color: #888;
+}
