@@ -89,6 +89,52 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    /* --- BEYOND PERFECTION FEATURES JS --- */
+
+    // 2. Scroll Progress Indicator
+    window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollPercentage = (scrollTop / scrollHeight) * 100;
+        document.getElementById('progress-bar').style.width = scrollPercentage + '%';
+    });
+
+    // 3. Active Nav Highlighter (Lava Lamp)
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.navbar a');
+    const highlighter = document.querySelector('.nav-highlighter');
+
+    function updateHighlighter() {
+        let current = '';
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollY >= (sectionTop - sectionHeight / 3)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+
+                // Move Highlighter
+                const linkRect = link.getBoundingClientRect();
+                const navRect = link.parentElement.parentElement.getBoundingClientRect();
+
+                highlighter.style.width = `${linkRect.width}px`;
+                highlighter.style.left = `${linkRect.left - navRect.left}px`;
+            }
+        });
+    }
+
+    window.addEventListener('scroll', updateHighlighter);
+    window.addEventListener('load', updateHighlighter);
+    window.addEventListener('resize', updateHighlighter);
+
+
     // Initialize EmailJS
     if (typeof emailjs !== 'undefined') {
         emailjs.init("J3seaIAFcq0yF7t2Z");
